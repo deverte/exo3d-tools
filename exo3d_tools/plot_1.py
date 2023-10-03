@@ -1,0 +1,19 @@
+"""1D plotting."""
+
+
+import typing
+
+import numpy as np
+
+
+def _plot_1(
+    array: "np.ndarray[(2 * (nR + 1))]",
+    grid: np.ndarray,
+    ax: "matplotlib.axes._axes.Axes" = None,
+) -> "matplotlib.axes._axes.Axes":
+    if not ax:
+        import matplotlib.pyplot as plt
+        fig = plt.figure()
+        ax = fig.add_subplot(111)
+    ax.plot(array, grid)
+    return ax
