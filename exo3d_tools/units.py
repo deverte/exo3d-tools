@@ -39,7 +39,7 @@ CVIEWER_UNITS = Units(
 )
 SCALED_UNITS = Units(
     density="cm-3",
-    temperature="1e4 K",
+    temperature="K",
     velocity="km s-1",
     distance="km",
 )

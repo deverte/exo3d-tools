@@ -8,9 +8,9 @@ library for exo3d (exoplanets atmospheres numerical simulation code).
 
 ```sh
 # Using PIP
-# Install using repo with Matplotlib
+# Install using PyPI package with Matplotlib
 pip3 install --index-url https://gitea.zarux.ru/api/packages/astro/pypi/simple exo3d-tools[matplotlib]
-# Install using repo without extras
+# Install using PyPI package without extras
 pip3 install --index-url https://gitea.zarux.ru/api/packages/astro/pypi/simple exo3d-tools
 # Install using git url with Matplotlib
 pip3 install git+https://gitea.zarux.ru/astro/exo3d-tools#egg=exo3d-tools[matplotlib]
@@ -27,6 +27,8 @@ poetry add exo3d-tools
 ```
 
 ## Usage
+
+In this documentation will be assumed that `exo3d_tools` is imported as `e3`.
 
 ### Data classes
 
@@ -82,6 +84,30 @@ import exo3d_tools as e3
 file = zipfile.Path("archive.zip") / "Result.dat"
 data = e3.from_3d_dat(file)
 ```
+
+### Units conversion
+
+```python
+d3 = e3.from_3d_dat(file_3d)
+
+d3.units # Units(density="cm-3", temperature="1e4 K",
+         # velocity="9.07 km s-1", distance="planet radius")
+d3s = d_e3.convert(e3.Units(temperature="K", velocity="km s-1", distance="km"))
+d3s.units # Units(density="cm-3", temperature="1e4 K",
+          # velocity="km s-1", distance="km")
+
+
+d1 = e3.from_1d_dat(file_1d) # without planet radius
+d1.params["Rplanet"] = str(2.0)
+d1.units # Units(density="lg(cm-3)", temperature="1e4 K",
+         # velocity="9.07 km s-1", distance="planet radius")
+```
+
+For convenience, there are units presets:
+
+- `e3.EXO3D_UNITS == e3.Units("cm-3", "1e4 K", "9.07 km s-1", "planet radius")`
+- `e3.CVIEWER_UNITS == e3.Units("lg(cm-3)", "1e4 K", "9.07 km s-1", "planet radius")`
+- `e3.SCALED_UNITS == e3.Units("cm-3", "K", "km s-1", "km")`
 
 ### Projection
 
