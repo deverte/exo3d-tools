@@ -15,5 +15,5 @@ def _plot_1(
         import matplotlib.pyplot as plt
         fig = plt.figure()
         ax = fig.add_subplot(111)
-    ax.plot(array, grid)
+    ax.plot(grid, array)
     return ax
