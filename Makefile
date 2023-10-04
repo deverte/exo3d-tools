@@ -1,6 +1,11 @@
 version = "0.1.0" # exo3d_tools/__init__.py
 
 
+.PHONY: build
+build:
+	poetry build
+
+
 .PHONY: test
 test:
 	poetry run python -m pytest
