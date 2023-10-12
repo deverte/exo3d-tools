@@ -1,7 +1,7 @@
 """exo3d tools library."""
 
 __author__ = "4.shepelin@gmail.com"
-__version__ = "0.1.0"
+__version__ = "0.1.1"
 
 
 from exo3d_tools.data_1d import Data1D
