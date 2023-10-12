@@ -19,11 +19,11 @@ pip3 install git+https://gitea.zarux.ru/astro/exo3d-tools
 
 # Using poetry
 # Add source
-poetry source add astro https://gitea.zarux.ru/api/packages/astro/pypi/simple
+poetry source add --priority=explicit astro https://gitea.zarux.ru/api/packages/astro/pypi/simple
 # Install with Matplotlib
-poetry add exo3d-tools[matplotlib]
+poetry add --source=astro exo3d-tools[matplotlib]
 # Install without extras
-poetry add exo3d-tools
+poetry add --source=astro exo3d-tools
 ```
 
 ## Usage
