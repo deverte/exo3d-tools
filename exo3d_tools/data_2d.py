@@ -104,7 +104,7 @@ class _Data2DView:
     def plot(
         self,
         ax: "matplotlib.axes._axes.Axes" = None,
-        shading: typing.Literal["auto", "gouraud", "nearest"] = "auto",
+        **kwargs,
     ) -> "matplotlib.axes._axes.Axes":
         """Plots 2D data in polar grid.
 
@@ -112,7 +112,7 @@ class _Data2DView:
         :param shading: Shading type.
         :return: Matplotlib axis (reference to `ax`).
         """
-        return _plot_2_polar(self.array, self.grid, ax, shading)
+        return _plot_2_polar(self.array, self.grid, ax, **kwargs)
 
     def to_cartesian(self) -> "_Data2DViewYX":
         """Converts into 2D data view with cartesian grid.
@@ -183,7 +183,7 @@ class _Data2DViewYX:
     def plot(
         self,
         ax: "matplotlib.axes._axes.Axes" = None,
-        shading: typing.Literal["auto", "gouraud", "nearest"] = "auto",
+        **kwargs,
     ) -> "matplotlib.axes._axes.Axes":
         """Plots 2D data in cartesian grid.
 
@@ -191,7 +191,7 @@ class _Data2DViewYX:
         :param shading: Shading type.
         :return: Matplotlib axis (reference to `ax`).
         """
-        return _plot_2_cartesian(self.array, self.grid, ax, shading)
+        return _plot_2_cartesian(self.array, self.grid, ax, **kwargs)
 
     def to_polar(self) -> _Data2DView:
         """Converts into 2D data view with polar grid.

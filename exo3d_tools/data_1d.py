@@ -56,13 +56,14 @@ class _Data1DView:
     def plot(
         self,
         ax: "matplotlib.axes._axes.Axes" = None,
+        **kwargs,
     ) -> "matplotlib.axes._axes.Axes":
         """Plots 1D data.
 
         :param ax: Matplotlib axis (mutable).
         :return: Matplotlib axis (reference to `ax`).
         """
-        return _plot_1(self.array, self.grid, ax)
+        return _plot_1(self.array, self.grid, ax, **kwargs)
 
 
 @dataclass
