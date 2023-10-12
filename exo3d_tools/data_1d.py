@@ -57,11 +57,11 @@ class _Data1DView:
         self,
         ax: "matplotlib.axes._axes.Axes" = None,
         **kwargs,
-    ) -> "matplotlib.axes._axes.Axes":
+    ) -> "list[matplotlib.lines.Line2D]":
         """Plots 1D data.
 
-        :param ax: Matplotlib axis (mutable).
-        :return: Matplotlib axis (reference to `ax`).
+        :param ax: Matplotlib axis.
+        :return: Matplotlib list[Line2D].
         """
         return _plot_1(self.array, self.grid, ax, **kwargs)
 

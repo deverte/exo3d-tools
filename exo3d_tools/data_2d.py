@@ -105,12 +105,12 @@ class _Data2DView:
         self,
         ax: "matplotlib.axes._axes.Axes" = None,
         **kwargs,
-    ) -> "matplotlib.axes._axes.Axes":
+    ) -> "matplotlib.collections.Collection":
         """Plots 2D data in polar grid.
 
         :param ax: Matplotlib axis (mutable).
         :param shading: Shading type.
-        :return: Matplotlib axis (reference to `ax`).
+        :return: Matplotlib Collection.
         """
         return _plot_2_polar(self.array, self.grid, ax, **kwargs)
 
@@ -184,12 +184,12 @@ class _Data2DViewYX:
         self,
         ax: "matplotlib.axes._axes.Axes" = None,
         **kwargs,
-    ) -> "matplotlib.axes._axes.Axes":
+    ) -> "matplotlib.collections.QuadMesh":
         """Plots 2D data in cartesian grid.
 
         :param ax: Matplotlib axis (mutable).
         :param shading: Shading type.
-        :return: Matplotlib axis (reference to `ax`).
+        :return: Matplotlib QuadMesh.
         """
         return _plot_2_cartesian(self.array, self.grid, ax, **kwargs)
 

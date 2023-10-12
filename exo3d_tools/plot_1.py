@@ -11,10 +11,9 @@ def _plot_1(
     grid: np.ndarray,
     ax: "matplotlib.axes._axes.Axes" = None,
     **kwargs,
-) -> "matplotlib.axes._axes.Axes":
+) -> "list[matplotlib.lines.Line2D]":
     if not ax:
         import matplotlib.pyplot as plt
         fig = plt.figure()
         ax = fig.add_subplot(111)
-    ax.plot(grid, array, **kwargs)
-    return ax
+    return ax.plot(grid, array, **kwargs)

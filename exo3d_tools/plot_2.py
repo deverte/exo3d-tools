@@ -11,15 +11,14 @@ def _plot_2_cartesian(
     grid: np.ndarray,
     ax: "matplotlib.axes._axes.Axes" = None,
     **kwargs,
-) -> "matplotlib.axes._axes.Axes":
+) -> "matplotlib.collections.QuadMesh":
     if not ax:
         import matplotlib.pyplot as plt
         fig = plt.figure()
         ax = fig.add_subplot(111)
     x = grid.n[1]
     y = grid.n[0]
-    ax.pcolormesh(x, y, array.swapaxes(0, 1), **kwargs)
-    return ax
+    return ax.pcolormesh(x, y, array.swapaxes(0, 1), **kwargs)
 
 
 def _plot_2_polar(
@@ -27,12 +26,11 @@ def _plot_2_polar(
     grid: np.ndarray,
     ax: "matplotlib.axes._axes.Axes" = None,
     **kwargs,
-) -> "matplotlib.axes._axes.Axes":
+) -> "matplotlib.collections.Collection":
     if not ax:
         import matplotlib.pyplot as plt
         fig = plt.figure()
         ax = fig.add_subplot(111, projection="polar")
     r = grid.n[1]
     phi = grid.n[0]
-    ax.pcolor(phi, r, array.swapaxes(0, 1), **kwargs)
-    return ax
+    return ax.pcolor(phi, r, array.swapaxes(0, 1), **kwargs)
