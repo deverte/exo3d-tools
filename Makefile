@@ -1,4 +1,4 @@
-version = "0.1.1" # exo3d_tools/__init__.py
+version = "0.1.1" # exo3d_tools/__init__.py, pyproject.toml
 
 
 .PHONY: build

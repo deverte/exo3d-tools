@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "exo3d_tools"
-version = "0.1.0"
+version = "0.1.1"
 description = "exo3d tools (read and save data, projections, interpolation, 1D, 2D plotting) library."
 authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
 readme = "README.md"
