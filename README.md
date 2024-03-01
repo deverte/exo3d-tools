@@ -5,6 +5,32 @@ library for exo3d (exoplanets atmospheres numerical simulation code).
 
 ## Installation
 
+### As Nix package (since v0.2.0)
+
+```
+{
+  inputs = {
+    exo3dToolsPkg.url = ''
+      https://github.com/deverte/exo3d-tools/archive/refs/tags/0.2.0.tar.gz
+    '';
+  };
+
+  outputs = inputs@{ self, exo3dToolsPkg, ... }:
+  let
+    system = "x86_64-linux";
+    exo3dTools = exo3dToolsPkg.packages.${system}.default;
+  in {
+    devShell.${system} = pkgs.mkShell {
+      buildInputs = [
+        exo3dTools
+      ];
+    };
+  };
+}
+```
+
+
+### As Python package
 
 ```sh
 # Using PIP
@@ -28,9 +54,17 @@ poetry add --source=astro exo3d-tools
 
 ## Usage
 
+### As application
+
+```sh
+e3 to-1d-csv --phi 0 --theta 0 --zippath ResultMM.dat data.zip 1d.csv
+```
+
+### As library
+
 In this documentation will be assumed that `exo3d_tools` is imported as `e3`.
 
-### Data classes
+#### Data classes
 
 Main data classes are: `e3.Data1D`, `e3.Data2D` and `e3.Data3D`.
 
@@ -72,7 +106,7 @@ data = e3.Data3D(
 )
 ```
 
-### Read data
+#### Read data
 
 `e3.Data3D` or `e3.Data1D` can be loaded from `pathlib.Path`, `zipfile.Path`,
 `io.FileIO`, `io.BytesIO` or `io.StringIO`.
@@ -85,7 +119,7 @@ file = zipfile.Path("archive.zip") / "Result.dat"
 data = e3.from_3d_dat(file)
 ```
 
-### Units conversion
+#### Units conversion
 
 ```python
 d3 = e3.from_3d_dat(file_3d)
@@ -109,7 +143,7 @@ For convenience, there are units presets:
 - `e3.CVIEWER_UNITS == e3.Units("lg(cm-3)", "1e4 K", "9.07 km s-1", "planet radius")`
 - `e3.SCALED_UNITS == e3.Units("cm-3", "K", "km s-1", "km")`
 
-### Projection
+#### Projection
 
 ```python
 import exo3d_tools as e3
@@ -121,7 +155,7 @@ d1 = d3.to_1d(theta=0, phi=0)
 d1 = d2.to_1d(phi=0)
 ```
 
-### Interpolation
+#### Interpolation
 
 ```python
 import exo3d_tools as e3
@@ -129,7 +163,7 @@ import exo3d_tools as e3
 d3 = e3.Data3D(...)
 ```
 
-### Graphics
+#### Graphics
 
 Graphics available for `e3.Data2D` and `e3.Data1D` data using Matplotlib
 library.
@@ -162,7 +196,7 @@ data[key].plot(ax=ax)
 ax.show()
 ```
 
-### Save data
+#### Save data
 
 Data can be saved for `e3.Data3D` or `e3.Data1D` into the following types:
 `pathlib.Path`, `zipfile.Path`, `io.FileIO`, `io.BytesIO` or `io.StringIO`.

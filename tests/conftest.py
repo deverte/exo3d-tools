@@ -75,17 +75,17 @@ text_data_3d_value = (
 
 
 text_data_1d_value = (
-    "x Y Z H1a.Pn H1p.Vr\n"
-    "-68,2500 -0,0000 -0,0000 0,4696 0,1768\n"
-    "-51,4463 -0,0000 -0,0000 0,3705 0,5792\n"
-    "-34,6425 -0,0000 -0,0000 0,3258 0,3060\n"
-    "-17,8388 -0,0000 -0,0000 0,9675 0,2024\n"
-    "-1,0350 -0,0000 -0,0000 0,7448 0,4558\n"
-    "1,0350 0,0000 0,0000 0,7581 0,9086\n"
-    "17,8388 0,0000 0,0000 0,3545 0,6997\n"
-    "34,6425 0,0000 0,0000 0,9707 0,2659\n"
-    "51,4463 0,0000 0,0000 0,8931 0,9692\n"
-    "68,2500 0,0000 0,0000 0,7784 0,7788\n"
+    "x,Y,Z,H1a.Pn,H1p.Vr\n"
+    "-68.2500,-0.0000,-0.0000,0.4696,0.1768\n"
+    "-51.4463,-0.0000,-0.0000,0.3705,0.5792\n"
+    "-34.6425,-0.0000,-0.0000,0.3258,0.3060\n"
+    "-17.8388,-0.0000,-0.0000,0.9675,0.2024\n"
+    "-1.0350,-0.0000,-0.0000,0.7448,0.4558\n"
+    "1.0350,0.0000,0.0000,0.7581,0.9086\n"
+    "17.8388,0.0000,0.0000,0.3545,0.6997\n"
+    "34.6425,0.0000,0.0000,0.9707,0.2659\n"
+    "51.4463,0.0000,0.0000,0.8931,0.9692\n"
+    "68.2500,0.0000,0.0000,0.7784,0.7788\n"
 )
 
 
@@ -116,7 +116,7 @@ def make_data_3d():
         r_n = np.linspace(1.0 + 0.001 * Rmax, Rmax, nR + 1)
         phi_n = np.linspace(0.0, 2 * np.pi, nF + 1)
         theta_n = np.linspace(-np.pi / 2, np.pi / 2, nTet + 1)
-        return e3.Data3D(
+        return e3.Data3Spherical(
             params={
                 "Rplanet": f"{Rplanet}",
                 "Rmax": f"{Rmax}",
@@ -129,10 +129,8 @@ def make_data_3d():
                 if (".Vr" in key) or (".Vt" in key) or (".Vf" in key)
                 else rng.random((nTet + 1, nF + 1, nR + 1)) for key in keys
             },
-            grid=e3.Grid3D(
-                v=np.meshgrid(theta_v, phi_v, r_v),
-                n=np.meshgrid(theta_n, phi_n, r_n),
-            ),
+            grid_n=e3.Grid3Spherical(data=np.meshgrid(theta_n, phi_n, r_n)),
+            grid_v=e3.Grid3Spherical(data=np.meshgrid(theta_v, phi_v, r_v)),
             units=e3.EXO3D_UNITS,
         )
     return _make_data_3d

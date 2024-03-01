@@ -3,18 +3,14 @@
 
 import numpy as np
 
-from exo3d_tools.units import _DensityUnit
-from exo3d_tools.units import _DistanceUnit
-from exo3d_tools.units import _TemperatureUnit
-from exo3d_tools.units import _VelocityUnit
-from exo3d_tools.units import _UnitsType
-from exo3d_tools.units import Units
+import exo3d_tools.data as data
+import exo3d_tools.units as units
 
 
 def _convert_temperature(
     array: np.ndarray,
-    f: _TemperatureUnit,
-    i: _TemperatureUnit,
+    f: units._TemperatureUnit,
+    i: units._TemperatureUnit,
 ) -> np.ndarray:
     t = {"1e4 K": 1.0e-4, "K": 1.0}
     output = t[f] / t[i] * array
@@ -23,8 +19,8 @@ def _convert_temperature(
 
 def _convert_velocity(
     array: np.ndarray,
-    f: _VelocityUnit,
-    i: _VelocityUnit,
+    f: units._VelocityUnit,
+    i: units._VelocityUnit,
 ) -> np.ndarray:
     v = {"9.07 km s-1": 1.0 / (9.07), "km s-1": 1.0}
     output = v[f] / v[i] * array
@@ -33,8 +29,8 @@ def _convert_velocity(
 
 def _convert_distance(
     array: np.ndarray,
-    f: _DistanceUnit,
-    i: _DistanceUnit,
+    f: units._DistanceUnit,
+    i: units._DistanceUnit,
     planet_radius: float = 1.0, # Planet radius [Jupiter radius]
 ) -> np.ndarray:
     JUPITER_RADIUS = 7.1492e4
@@ -49,8 +45,8 @@ def _convert_distance(
 
 def _convert_density(
     array: np.ndarray,
-    f: _DensityUnit,
-    i: _DensityUnit,
+    f: units._DensityUnit,
+    i: units._DensityUnit,
 ) -> np.ndarray:
     n = {
         "lg(cm-3)": {
@@ -67,13 +63,18 @@ def _convert_density(
 
 
 def _convert(
-    data: "exo3d_tools.Data1D | exo3d_tools.Data2D | exo3d_tools.Data3D",
-    f: _UnitsType | Units,
-) -> "exo3d_tools.Data1D | exo3d_tools.Data2D | exo3d_tools.Data3D":
+    data: "data._Data",
+    f: units._UnitsType | units.Units,
+) -> "data._Data":
     data = data.copy()
 
-    if not isinstance(f, Units):
-        f = Units(density=f[0], temperature=f[1], velocity=f[2], distance=f[3])
+    if not isinstance(f, units.Units):
+        f = units.Units(
+            density=f[0],
+            temperature=f[1],
+            velocity=f[2],
+            distance=f[3],
+        )
     i = data.units
 
     for key in data.arrays.keys():
@@ -103,15 +104,15 @@ def _convert(
         i.distance,
         planet_radius=Rplanet,
     )
-    if len(data.grid.n) == 3:
-        data.grid.n[2] = cd(data.grid.n[2])
-        data.grid.v[2] = cd(data.grid.v[2])
-    elif len(data.grid.n) == 2:
-        data.grid.n[1] = cd(data.grid.n[1])
-        data.grid.v[1] = cd(data.grid.v[1])
-    elif len(data.grid.n) == 1:
-        data.grid.n[0] = cd(data.grid.n[0])
-        data.grid.v[0] = cd(data.grid.v[0])
+    if len(data.grid_n.data) == 3:
+        data.grid_n.data[2] = cd(data.grid_n.data[2])
+        data.grid_v.data[2] = cd(data.grid_v.data[2])
+    elif len(data.grid_n.data) == 2:
+        data.grid_n.data[1] = cd(data.grid_n.data[1])
+        data.grid_v.data[1] = cd(data.grid_v.data[1])
+    elif len(data.grid_n.data) == 1:
+        data.grid_n.data[0] = cd(data.grid_n.data[0])
+        data.grid_v.data[0] = cd(data.grid_v.data[0])
 
     data.units = f
     return data

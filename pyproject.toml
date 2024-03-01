@@ -1,25 +1,36 @@
-[tool.poetry]
+[project]
 name = "exo3d_tools"
-version = "0.1.2"
-description = "exo3d tools (read and save data, projections, interpolation, 1D, 2D plotting) library."
-authors = ["Artem Shepelin <4.shepelin@gmail.com>"]
+version = "0.2.0"
+description = """\
+exo3d tools (read and save data, projections, interpolation, 1D, 2D plotting) \
+library.\
+"""
+authors = [{name = "Artem Shepelin", email = "4.shepelin@gmail.com"}]
 readme = "README.md"
+keywords = ["exo3d", "astrophysics", "exoplanets"]
+license = {text = "GPL-3"}
+requires-python = ">= 3.11"
+dependencies = [
+    "numpy >= 1.26.0",
+    "pandas >= 2.1.1",
+    "scipy >= 1.11.3",
+    "typer >= 0.9.0",
+]
 
-[tool.poetry.dependencies]
-python = "<3.13,>=3.9"
-numpy = "^1.26.0"
-pandas = "^2.1.1"
-scipy = "^1.11.3"
-matplotlib = {version = "^3.8.0", optional = true}
+[project.optional-dependencies]
+plot = [
+    "matplotlib >= 3.8.0",
+]
+dev = [
+    "exo3d_tools[plot]",
+    "pytest >= 7.4.2",
+    "twine >= 4.0.2",
+]
 
-[tool.poetry.extras]
-matplotlib = ["matplotlib"]
-
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.2"
-twine = "^4.0.2"
+[project.scripts]
+e3 = "exo3d_tools.__main__:app"
+exo3d_tools = "exo3d_tools.__main__:app"
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
