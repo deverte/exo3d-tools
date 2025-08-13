@@ -129,8 +129,12 @@ def make_data_3d():
                 if (".Vr" in key) or (".Vt" in key) or (".Vf" in key)
                 else rng.random((nTet + 1, nF + 1, nR + 1)) for key in keys
             },
-            grid_n=e3.Grid3Spherical(data=np.meshgrid(theta_n, phi_n, r_n)),
-            grid_v=e3.Grid3Spherical(data=np.meshgrid(theta_v, phi_v, r_v)),
+            grid_n=e3.Grid3Spherical(
+                data=list(np.meshgrid(theta_n, phi_n, r_n)),
+            ),
+            grid_v=e3.Grid3Spherical(
+                data=list(np.meshgrid(theta_v, phi_v, r_v)),
+            ),
             units=e3.EXO3D_UNITS,
         )
     return _make_data_3d

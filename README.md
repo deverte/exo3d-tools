@@ -7,49 +7,32 @@ library for exo3d (exoplanets atmospheres numerical simulation code).
 
 ### As Nix package (since v0.2.0)
 
-```
+```nix
 {
   inputs = {
-    exo3dToolsPkg.url = ''
-      https://github.com/deverte/exo3d-tools/archive/refs/tags/0.2.0.tar.gz
-    '';
+    exo3dtoolspkgs.url = ''
+      https://github.com/deverte/exo3d-tools/archive/refs/tags/v0.2.1.tar.gz'';
   };
 
-  outputs = inputs@{ self, exo3dToolsPkg, ... }:
+  outputs = inputs@{ self, exo3dtoolspkgs, ... }:
   let
     system = "x86_64-linux";
-    exo3dTools = exo3dToolsPkg.packages.${system}.default;
+    e3 = exo3dtoolspkgs.packages.${system}.default; # default Python
+    # e3 = exo3dtoolspkgs.packages.${system}.python312; # specific Python
   in {
     devShell.${system} = pkgs.mkShell {
       buildInputs = [
-        exo3dTools
+        e3
       ];
     };
   };
 }
 ```
 
-
 ### As Python package
 
 ```sh
-# Using PIP
-# Install using PyPI package with Matplotlib
-pip3 install --index-url https://gitea.zarux.ru/api/packages/astro/pypi/simple exo3d-tools[matplotlib]
-# Install using PyPI package without extras
-pip3 install --index-url https://gitea.zarux.ru/api/packages/astro/pypi/simple exo3d-tools
-# Install using git url with Matplotlib
-pip3 install git+https://gitea.zarux.ru/astro/exo3d-tools#egg=exo3d-tools[matplotlib]
-# Install using git url without extras
-pip3 install git+https://gitea.zarux.ru/astro/exo3d-tools
-
-# Using poetry
-# Add source
-poetry source add --priority=explicit astro https://gitea.zarux.ru/api/packages/astro/pypi/simple
-# Install with Matplotlib
-poetry add --source=astro exo3d-tools[matplotlib]
-# Install without extras
-poetry add --source=astro exo3d-tools
+pip3 install git+https://github.com/deverte/exo3d-tools
 ```
 
 ## Usage

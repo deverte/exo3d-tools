@@ -1,4 +1,4 @@
-ver := "0.2.0"
+version := "0.2.1"
 
 build:
   just update-version
@@ -17,20 +17,20 @@ update-version:
 
   flake = pathlib.Path('flake.nix')
   pattern = 'version = ".*"; # managed'
-  repl = 'version = "{{ver}}"; # managed'
+  repl = 'version = "{{version}}"; # managed'
   flake.write_text(re.sub(pattern, repl, flake.read_text()))
 
   pyproject = pathlib.Path('pyproject.toml')
   pattern = 'version = ".*"'
-  repl = 'version = "{{ver}}"'
+  repl = 'version = "{{version}}"'
   pyproject.write_text(re.sub(pattern, repl, pyproject.read_text()))
 
   init = pathlib.Path('exo3d_tools/__init__.py')
   pattern = '__version__ = ".*"'
-  repl = '__version__ = "{{ver}}"'
+  repl = '__version__ = "{{version}}"'
   init.write_text(re.sub(pattern, repl, init.read_text()))
 
   readme = pathlib.Path('README.md')
-  pattern = '\/tags\/.*\.tar\.gz'
-  repl = '/tags/{{ver}}.tar.gz'
+  pattern = '\/tags\/v.*\.tar\.gz'
+  repl = '/tags/v{{version}}.tar.gz'
   readme.write_text(re.sub(pattern, repl, readme.read_text()))
