@@ -11,7 +11,7 @@ library for exo3d (exoplanets atmospheres numerical simulation code).
 {
   inputs = {
     exo3dtoolspkgs.url = ''
-      https://github.com/deverte/exo3d-tools/archive/refs/tags/v0.2.1.tar.gz'';
+      https://github.com/deverte/exo3d-tools/archive/refs/tags/v0.2.2.tar.gz'';
   };
 
   outputs = inputs@{ self, exo3dtoolspkgs, ... }:

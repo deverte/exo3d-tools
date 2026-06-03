@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-25.05";
+    nixpkgs.url = "nixpkgs/nixos-26.05";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
@@ -33,7 +33,7 @@
     buildExo3dToolsPackage = pythonPackages: pythonPackages.buildPythonPackage {
       name = "exo3d-tools";
       format = "pyproject";
-      version = "0.2.1"; # managed by justfile
+      version = "0.2.2"; # managed by justfile
       src = ./.;
       nativeBuildInputs = getBuildPackages pythonPackages;
       buildInputs = getBuildPackages pythonPackages;

@@ -1,4 +1,4 @@
-version := "0.2.1"
+version := "0.2.2"
 
 build:
   just update-version
@@ -31,6 +31,6 @@ update-version:
   init.write_text(re.sub(pattern, repl, init.read_text()))
 
   readme = pathlib.Path('README.md')
-  pattern = '\/tags\/v.*\.tar\.gz'
+  pattern = r'\/tags\/v.*\.tar\.gz'
   repl = '/tags/v{{version}}.tar.gz'
   readme.write_text(re.sub(pattern, repl, readme.read_text()))

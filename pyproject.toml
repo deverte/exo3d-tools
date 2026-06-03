@@ -1,6 +1,6 @@
 [project]
 name = "exo3d_tools"
-version = "0.2.1"
+version = "0.2.2"
 description = """\
 exo3d tools (read and save data, projections, interpolation, 1D, 2D plotting) \
 library.\
